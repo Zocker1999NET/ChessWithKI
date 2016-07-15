@@ -11,20 +11,35 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// Die Vorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 dokumentiert.
+namespace ChessWithKI {
+	/// <summary>
+	/// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
+	/// </summary>
+	public sealed partial class MainPage : Page {
 
-namespace ChessWithKI
-{
-    /// <summary>
-    /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
-    }
+		private Button[,] gameFieldButtons = new Button[8, 8];
+
+		public MainPage() {
+			this.InitializeComponent();
+			BitmapImage tempImage = new BitmapImage(new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Chess_kll45.svg/2000px-Chess_kll45.svg.png"));
+			for(int x = 0; x < 8; x++) {
+				for(int y = 0; y < 8; y++) {
+					Button b = new Button();
+					Image i = new Image();
+					i.Source = tempImage;
+					b.Content = i;
+					b.Width = 256;
+					b.Height = 256;
+					b.Margin = new Thickness(4);
+					gameFieldButtons[x, y] = b;
+					Grid.SetColumn(b, x);
+					Grid.SetRow(b, y);
+					gameFieldGrid.Children.Add(b);
+				}
+			}
+		}
+	}
 }
